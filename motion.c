@@ -20,6 +20,7 @@
 #include "webu.h"
 
 #define IMAGE_BUFFER_FLUSH ((unsigned int)-1)
+#define INFO_DAT_FILE "/git/robolabspectator/webapp/info.dat"
 
 /**
  * tls_key_threadnr
@@ -2163,6 +2164,27 @@ static void mlp_overlay(struct context *cnt){
         draw_text(cnt->current_image->image_norm, cnt->imgs.width, cnt->imgs.height,
                   cnt->imgs.width - 10, cnt->imgs.height - (10 * cnt->text_scale),
                   tmp, cnt->text_scale);
+
+
+//      Own text
+
+        FILE * fp;
+        char * line = NULL;
+        size_t len = 0;
+        ssize_t read;
+
+        fp = fopen(INFO_DAT_FILE, "r");
+        if (fp == NULL)
+            exit(EXIT_FAILURE);
+
+        while ((read = getline(&line, &len, fp)) != -1) {
+            draw_text(cnt->current_image->image_norm, cnt->imgs.width, cnt->imgs.height,
+                      10, 20, line, cnt->text_scale*3);
+        }
+
+        fclose(fp);
+        if (line)
+            free(line);
     }
 
 }
