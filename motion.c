@@ -2174,17 +2174,16 @@ static void mlp_overlay(struct context *cnt){
         ssize_t read;
 
         fp = fopen(INFO_DAT_FILE, "r");
-        if (fp == NULL)
-            exit(EXIT_FAILURE);
+        if (fp != NULL){
+            while ((read = getline(&line, &len, fp)) != -1) {
+                draw_text(cnt->current_image->image_norm, cnt->imgs.width, cnt->imgs.height,
+                          10, 20, line, cnt->text_scale*3);
+            }
 
-        while ((read = getline(&line, &len, fp)) != -1) {
-            draw_text(cnt->current_image->image_norm, cnt->imgs.width, cnt->imgs.height,
-                      10, 20, line, cnt->text_scale*3);
+            fclose(fp);
+            if (line)
+                free(line);
         }
-
-        fclose(fp);
-        if (line)
-            free(line);
     }
 
 }
