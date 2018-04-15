@@ -2162,8 +2162,8 @@ static void mlp_overlay(struct context *cnt){
         mystrftime(cnt, tmp, sizeof(tmp), cnt->conf.text_right,
                    &cnt->current_image->timestamp_tv, NULL, 0);
         draw_text(cnt->current_image->image_norm, cnt->imgs.width, cnt->imgs.height,
-                  cnt->imgs.width - 10, cnt->imgs.height - (10 * cnt->text_scale),
-                  tmp, cnt->text_scale);
+                  cnt->imgs.width - 10, cnt->imgs.height - (10 * cnt->text_scale*3),
+                  tmp, cnt->text_scale*3);
 
 
 //      Own text
